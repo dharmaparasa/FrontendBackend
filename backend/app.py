@@ -1,16 +1,17 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mysql.connector
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-# Database Configuration
+# Database Configuration, pass the variables through export commands on server before running, like export DB_HOST="awsendpoint", DB_NAME="dev"
 db_config = {
-    'host': 'book-rds.cinsoscgioqa.us-east-1.rds.amazonaws.com',
-    'user': 'admin',
-    'password': 'SuperSecretPass123',
-    'database': 'dev'
+    'host': os.getenv("DB_HOST"),
+    'user': os.getenv("DB_USER"),
+    'password': os.getenv("DB_PASS"),
+    'database': os.getenv("DB_NAME")
 }
 
 # Connect to MySQL
